@@ -1,19 +1,29 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
-import { Center, List, Box } from "native-base";
+import { Center, List, Box, Button } from "native-base";
+import { checkoutCart } from "../../store/actions/cartActions";
 
 const CartList = () => {
-  const items = useSelector((state) => state.carts.items);
+  const items = useSelector((state) => state.items.items);
   const products = useSelector((state) => state.products.products);
+  const dispatch = useDispatch();
 
   const cartItems = items
-    .map((item) => ({
-      ...products.find((product) => product.id === item.itemId),
-      quantity: item.quantity,
-    }))
+    .map((item) => {
+      const newProduct = {
+        ...products.find((product) => product.id === item.productId),
+        quantity: item.quantity,
+      };
+      // console.log(newProduct);
+      return newProduct;
+    })
     .map((item) => <CartItem item={item} key={item.id} />);
+  const handleCheckout = () => {
+    dispatch(checkoutCart());
+    alert("thank you for shopping with us !");
+  };
   return (
     <Center flex={1}>
       <Box w="95%">
@@ -22,6 +32,7 @@ const CartList = () => {
           {cartItems}
         </List>
       </Box>
+      <Button onPress={handleCheckout}>CheckOut</Button>
     </Center>
   );
 };

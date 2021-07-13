@@ -10,12 +10,10 @@ const ShopList = ({ navigation }) => {
     <ShopItem key={shop.id} shop={shop} navigation={navigation} />
   ));
   return (
-    <View>
-      <Center>
-        {shopLoading ? <Spinner color="blue" /> : shopList}
-        <Text style={{ fontSize: 20, fontWeight: "bold" }}></Text>
-      </Center>
-    </View>
+    <Center style={{ marginTop: 150 }}>
+      {shopLoading ? <Spinner color="blue" /> : shopList}
+      <Text style={{ fontSize: 20, fontWeight: "bold" }}></Text>
+    </Center>
   );
 };
 

@@ -4,7 +4,7 @@ import shopReducer from "./shopsReducer";
 import cartReducer from "./cartReducer";
 
 const rootReducer = combineReducers({
-  carts: cartReducer,
+  items: cartReducer,
   products: productReducer,
   shops: shopReducer,
 });

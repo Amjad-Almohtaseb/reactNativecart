@@ -3,8 +3,8 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { HOME, PRODUCTDETAIL, SHOPDETAIL, SHOPLIST, CARTLIST } from "./types";
 
-import Home from "../home";
-import ShopList from "../shopList";
+import Home from "../Home";
+import ShopList from "../ShopList";
 import ShopDetail from "../ShopDetail";
 import { Provider } from "react-redux";
 import ProductDetail from "../ProductDetail";

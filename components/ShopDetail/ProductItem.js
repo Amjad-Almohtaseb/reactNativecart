@@ -1,10 +1,20 @@
-import React from "react";
+import { Button } from "react-native";
+import React, { useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+import NumericInput from "react-native-numeric-input";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/actions/cartActions";
 import { PRODUCTDETAIL } from "../Navigation/types";
 
 const ProductItem = ({ product, navigation }) => {
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  const handleAdd = () => {
+    const newProduct = { quantity, productId: product.id };
+    dispatch(addToCart(newProduct));
+  };
   return (
-    <View>
+    <>
       <Text
         onPress={() => {
           navigation.navigate(PRODUCTDETAIL, { product });
@@ -15,7 +25,24 @@ const ProductItem = ({ product, navigation }) => {
       <Text>{product.price} JD</Text>
       <Text>{product.description}</Text>
       <Image style={styles.img} source={{ uri: product.image }} />
-    </View>
+      <NumericInput
+        initValue={quantity}
+        Value={quantity}
+        onChange={setQuantity}
+        totalWidth={180}
+        totalHeight={50}
+        iconSize={25}
+        step={1}
+        valueType="real"
+        rounded
+        textColor="#B0228C"
+        minValue={1}
+        iconStyle={{ color: "white" }}
+        rightButtonBackgroundColor="#767676"
+        leftButtonBackgroundColor="#767676"
+      />
+      <Button title="add" onPress={handleAdd} disabled={quantity <= 0} />
+    </>
   );
 };
 
