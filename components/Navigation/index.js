@@ -1,7 +1,15 @@
 import React from "react";
 
 import { createStackNavigator } from "@react-navigation/stack";
-import { HOME, PRODUCTDETAIL, SHOPDETAIL, SHOPLIST, CARTLIST } from "./types";
+import {
+  HOME,
+  PRODUCTDETAIL,
+  SHOPDETAIL,
+  SHOPLIST,
+  CARTLIST,
+  SIGNIN,
+  SIGNUP,
+} from "./types";
 
 import Home from "../Home";
 import ShopList from "../ShopList";
@@ -10,6 +18,8 @@ import { Provider } from "react-redux";
 import ProductDetail from "../ProductDetail";
 import CartList from "../CartList";
 import CartButton from "../CartList/CartButton";
+import Signin from "../Authentication/Signin";
+import Signup from "../Authentication/Signup";
 
 const StackNavigator = () => {
   const { Navigator, Screen } = createStackNavigator();
@@ -23,6 +33,8 @@ const StackNavigator = () => {
       }}
     >
       <Screen name={HOME} options={{ headerShown: false }} component={Home} />
+      <Screen name={SIGNIN} options={{ title: "Signin" }} component={Signin} />
+      <Screen name={SIGNUP} options={{ title: "Signup" }} component={Signup} />
 
       <Screen
         name={SHOPLIST}

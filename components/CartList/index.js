@@ -1,14 +1,16 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
 import { Center, List, Box, Button } from "native-base";
 import { checkoutCart } from "../../store/actions/cartActions";
+import { SIGNIN } from "../Navigation/types";
 
-const CartList = () => {
+const CartList = ({ navigation }) => {
   const items = useSelector((state) => state.items.items);
   const products = useSelector((state) => state.products.products);
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
 
   const cartItems = items
     .map((item) => {
@@ -20,9 +22,17 @@ const CartList = () => {
       return newProduct;
     })
     .map((item) => <CartItem item={item} key={item.id} />);
+  const createButtonAlert = () =>
+    Alert.alert("sign in", "you need to be signed in to place an order", [
+      {
+        text: "Cancel",
+        text: "OK",
+        onPress: () => navigation.navigate(SIGNIN),
+        style: "cancel",
+      },
+    ]);
   const handleCheckout = () => {
-    dispatch(checkoutCart());
-    alert("thank you for shopping with us !");
+    user ? dispatch(checkoutCart(items)) : createButtonAlert();
   };
   return (
     <Center flex={1}>

@@ -10,7 +10,11 @@ const ProductItem = ({ product, navigation }) => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   const handleAdd = () => {
-    const newProduct = { quantity, productId: product.id };
+    const newProduct = {
+      quantity,
+      productId: product.id,
+      total: quantity * product.price,
+    };
     dispatch(addToCart(newProduct));
   };
   return (
